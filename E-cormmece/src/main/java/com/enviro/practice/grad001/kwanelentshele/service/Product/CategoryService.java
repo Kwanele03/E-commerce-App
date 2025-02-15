@@ -2,22 +2,15 @@ package com.enviro.practice.grad001.kwanelentshele.service.Product;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
 import com.enviro.practice.grad001.kwanelentshele.Model.Category;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.AlreadyExistException;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.repository.CategoryRepository;
 
-import lombok.RequiredArgsConstructor;
-
 
 @Service
-@RequiredArgsConstructor
 public class CategoryService implements ICategoryService{
-	
-	
 	
 	private final  CategoryRepository categoryRepository;
 	
@@ -43,7 +36,7 @@ public class CategoryService implements ICategoryService{
 
 	@Override
 	public Category addCategory(Category category) {
-		// TODO Auto-generated method stub
+
 		return Optional.of(category).filter(c -> !categoryRepository.existsByName(c.getName())) .map(categoryRepository :: save).orElseThrow(() -> new AlreadyExistException(category.getName() + "Category is already exist!"));
 	}
 
@@ -66,15 +59,5 @@ public class CategoryService implements ICategoryService{
 	}
 	
 	
-	
-	
-
-	public CategoryRepository getCategoryRepository() {
-		return categoryRepository;
-	}
-
-	public void setCategoryRepository(CategoryRepository categoryRepository) {
-		this.categoryRepository = categoryRepository;
-	}
 
 }

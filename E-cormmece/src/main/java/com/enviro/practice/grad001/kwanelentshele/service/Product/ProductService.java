@@ -13,11 +13,8 @@ import com.enviro.practice.grad001.kwanelentshele.repository.ProductRepository;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
 
-import lombok.RequiredArgsConstructor;
-
 
 @Service
-@RequiredArgsConstructor
 public class ProductService implements IProductService{
 	
 	

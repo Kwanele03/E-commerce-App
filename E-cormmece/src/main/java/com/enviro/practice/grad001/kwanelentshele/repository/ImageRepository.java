@@ -7,4 +7,3 @@ import com.enviro.practice.grad001.kwanelentshele.Model.Image;
 public interface ImageRepository extends JpaRepository<Image, Long>{
 
 }
-
