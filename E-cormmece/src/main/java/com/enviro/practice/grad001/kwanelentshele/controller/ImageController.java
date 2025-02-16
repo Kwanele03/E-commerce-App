@@ -3,6 +3,8 @@ package com.enviro.practice.grad001.kwanelentshele.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,8 @@ import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Image.IImageService;
+
+
 
 @RestController
 @RequestMapping("${api.prefix}/images")
@@ -48,8 +52,10 @@ private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
 	}
 		
   }
+	
 	@GetMapping("/image/download/{imageId}")
 	public ResponseEntity<Resource> downloadImage( @PathVariable Long imageId) throws SQLException{
+		
 		Image image = imageServices.getImageById(imageId);
 		
 		ByteArrayResource resource = new ByteArrayResource(image.getImage().getBytes(1, (int) image.getImage().length()));
@@ -62,13 +68,9 @@ private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
 	
 	
 	@PutMapping ("/image/{}/update")
-    public ResponseEntity<APIResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file) {
-        Image image = imageServices.getImageById(imageId);
-
-        if (image == null) {
-            return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Image not found!", null));
-        }
-
+	public ResponseEntity<APIResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file){
+		
+		Image image = imageServices.getImageById(imageId);
         try {
             imageServices.updateImage(file, imageId);
             return ResponseEntity.ok(new APIResponse("Update Success", null));
@@ -77,16 +79,14 @@ private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Update failed!", null));
         }
+	
 	}
 	
 	
-	@DeleteMapping ("/image/{imageId}/delete")
-    public ResponseEntity<APIResponse> deleteImage(@PathVariable Long imageId) {
-        Image image = imageServices.getImageById(imageId);
-
-        if (image == null) {
-            return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Image not found!", null));
-        }
+	@DeleteMapping ("/image/{}/delete")
+	public ResponseEntity<APIResponse> deleteImage(@PathVariable Long imageId){
+		
+		Image image = imageServices.getImageById(imageId);
 
         try {
             imageServices.deleteImageById(imageId);
@@ -96,7 +96,8 @@ private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Delete failed!", null));
         }
-    }
+	}
 	
 	
+
 }

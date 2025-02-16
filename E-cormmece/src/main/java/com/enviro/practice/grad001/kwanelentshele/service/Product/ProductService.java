@@ -101,37 +101,31 @@ public class ProductService implements IProductService{
 
 	@Override
 	public List<Product> getProductsByCategory(String category) {
-		// TODO Auto-generated method stub
 		return productRepository.findByCategoryName(category);
 	}
 
 	@Override
 	public List<Product> getProductsByBrand(String brand) {
-		// TODO Auto-generated method stub
 		return productRepository.findByBrand(brand);
 	}
 
 	@Override
 	public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
-		// TODO Auto-generated method stub
 		return productRepository.findByCategoryNameAndBrand(category, brand);
 	}
 
 	@Override
 	public List<Product> getProductsByName(String name) {
-		// TODO Auto-generated method stub
 		return productRepository.findByName(name);
 	}
 
 	@Override
 	public List<Product> getProductsByNameAndBrand(String name, String brand) {
-		// TODO Auto-generated method stub
 		return productRepository.findByNameAndBrand(name, brand);
 	}
 
 	@Override
 	public Long countProductsByBrandAndName(String brand, String name) {
-		// TODO Auto-generated method stub
 		return productRepository.countByBrandAndName(brand, name);
 	}
 
