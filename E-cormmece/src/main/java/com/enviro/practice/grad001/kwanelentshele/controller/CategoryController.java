@@ -49,8 +49,8 @@ public class CategoryController {
 		
 	}
 	
-	
   }
+  
 	@PostMapping("/add")
 	public ResponseEntity<APIResponse> addCategory(@RequestBody Category name){
 		
