@@ -3,9 +3,10 @@ package com.enviro.practice.grad001.kwanelentshele.service.Category;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import com.enviro.practice.grad001.kwanelentshele.Model.Category;
+
 import com.enviro.practice.grad001.kwanelentshele.exceptions.AlreadyExistException;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
+import com.enviro.practice.grad001.kwanelentshele.model.Category;
 import com.enviro.practice.grad001.kwanelentshele.repository.CategoryRepository;
 
 

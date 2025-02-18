@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.enviro.practice.grad001.kwanelentshele.Model.Image;
+
 import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
+import com.enviro.practice.grad001.kwanelentshele.model.Image;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Image.IImageService;
 

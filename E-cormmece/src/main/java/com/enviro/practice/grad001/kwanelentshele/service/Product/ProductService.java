@@ -2,16 +2,14 @@ package com.enviro.practice.grad001.kwanelentshele.service.Product;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import com.enviro.practice.grad001.kwanelentshele.Model.Category;
-import com.enviro.practice.grad001.kwanelentshele.Model.Image;
-import com.enviro.practice.grad001.kwanelentshele.Model.Product;
 import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
 import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ProductNotFoundException;
+import com.enviro.practice.grad001.kwanelentshele.model.Category;
+import com.enviro.practice.grad001.kwanelentshele.model.Image;
+import com.enviro.practice.grad001.kwanelentshele.model.Product;
 import com.enviro.practice.grad001.kwanelentshele.repository.CategoryRepository;
 import com.enviro.practice.grad001.kwanelentshele.repository.ImageRepository;
 import com.enviro.practice.grad001.kwanelentshele.repository.ProductRepository;

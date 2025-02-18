@@ -2,7 +2,8 @@ package com.enviro.practice.grad001.kwanelentshele.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import com.enviro.practice.grad001.kwanelentshele.Model.Category;
+
+import com.enviro.practice.grad001.kwanelentshele.model.Category;
 
 
 

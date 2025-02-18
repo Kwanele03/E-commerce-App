@@ -11,10 +11,10 @@ import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.enviro.practice.grad001.kwanelentshele.Model.Image;
-import com.enviro.practice.grad001.kwanelentshele.Model.Product;
 import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
+import com.enviro.practice.grad001.kwanelentshele.model.Image;
+import com.enviro.practice.grad001.kwanelentshele.model.Product;
 import com.enviro.practice.grad001.kwanelentshele.repository.ImageRepository;
 import com.enviro.practice.grad001.kwanelentshele.service.Product.IProductService;
 

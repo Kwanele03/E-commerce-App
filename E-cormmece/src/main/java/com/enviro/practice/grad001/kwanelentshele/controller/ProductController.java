@@ -5,9 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.enviro.practice.grad001.kwanelentshele.Model.Product;
+
 import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
+import com.enviro.practice.grad001.kwanelentshele.model.Product;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
