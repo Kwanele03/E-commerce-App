@@ -1,12 +1,10 @@
 package com.enviro.practice.grad001.kwanelentshele.controller;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.enviro.practice.grad001.kwanelentshele.Model.Product;
 import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
@@ -35,7 +33,6 @@ public class ProductController {
 		List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
 		return ResponseEntity.ok(new APIResponse("Success 1", convertedProducts));
 	}
-	
 	
 	@GetMapping("/product/{productId}/product")
 	public ResponseEntity<APIResponse> getProductById(@PathVariable Long productId){
@@ -71,8 +68,7 @@ public class ProductController {
 			Product product = productService.updateProduct(request, productId);
 			return ResponseEntity.ok(new APIResponse ("Product Updated successfully", product));
 		} catch (ResourceNotFoundException exception) {
-			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
-			
+			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));	
 		}
 	}
 	
@@ -90,11 +86,11 @@ public class ProductController {
 	public ResponseEntity<APIResponse> getProductsByNameAndBrand(@RequestParam String name, @RequestParam String brand){
 		try {
 			List<Product> products = productService.getProductsByNameAndBrand(name, brand);
-			List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
 			
 			if(products.isEmpty()) {
 				return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", null));
 			}
+			List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
 			return ResponseEntity.ok(new APIResponse ("Sucess", convertedProducts));
 		}  catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
@@ -173,6 +169,5 @@ public class ProductController {
 			.body(new APIResponse(exception.getMessage(), null));
 		}
 	}
-
 
 }
