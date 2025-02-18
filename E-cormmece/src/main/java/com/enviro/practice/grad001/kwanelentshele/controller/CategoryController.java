@@ -21,7 +21,7 @@ import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Category.ICategoryService;
 
 @RestController
-@RequestMapping("${api.prefix}/categoies")
+@RequestMapping("${api.prefix}/categories")
 public class CategoryController {
 	
 	private static final HttpStatus INTERNAL_SERVER_ERROR = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -42,20 +42,18 @@ public class CategoryController {
 	try {	
 		List<Category> categories = categoryService.getAllCategories();
 		return ResponseEntity.ok(new APIResponse("Found!", categories));
-		
 	}
 	catch(Exception exception) {
 		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Erro:", INTERNAL_SERVER_ERROR));
 		
 	}
 	
+	
   }
-  
 	@PostMapping("/add")
 	public ResponseEntity<APIResponse> addCategory(@RequestBody Category name){
 		
 		try {
-		
 		Category theCategory = categoryService.addCategory(name);
 		return ResponseEntity.ok(new APIResponse("Success!", theCategory));
 	} 

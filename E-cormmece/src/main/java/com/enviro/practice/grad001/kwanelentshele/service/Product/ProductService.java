@@ -3,12 +3,17 @@ package com.enviro.practice.grad001.kwanelentshele.service.Product;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.enviro.practice.grad001.kwanelentshele.Model.Category;
+import com.enviro.practice.grad001.kwanelentshele.Model.Image;
 import com.enviro.practice.grad001.kwanelentshele.Model.Product;
+import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
+import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ProductNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.repository.CategoryRepository;
+import com.enviro.practice.grad001.kwanelentshele.repository.ImageRepository;
 import com.enviro.practice.grad001.kwanelentshele.repository.ProductRepository;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
@@ -20,10 +25,14 @@ public class ProductService implements IProductService{
 	
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
+	private final ImageRepository imageRepository;
+	private final ModelMapper modelMapper;
 
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductService(ProductRepository productRepository,  ImageRepository imageRepository, CategoryRepository categoryRepository,  ModelMapper modelMapper) {
         this.productRepository = productRepository;
+        this.imageRepository = imageRepository;
         this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
     
 	@Override
@@ -129,4 +138,19 @@ public class ProductService implements IProductService{
 		return productRepository.countByBrandAndName(brand, name);
 	}
 
+	@Override
+	public List<ProductDto> getConvertedProducts(List<Product> products) {
+		return products.stream().map(this :: convertToDto).toList();
+		
+	}
+	
+	@Override
+	public ProductDto convertToDto(Product product) {
+		ProductDto productDto = modelMapper.map(product, ProductDto.class);
+		List<Image> images = imageRepository.findByProductId(product.getId());
+		List<ImageDto> imageDto = images.stream().map(image -> modelMapper.map(image, ImageDto.class)).toList();
+		
+		productDto.setImages(imageDto);
+		return productDto;
+	}
 }

@@ -10,11 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.NoArgsConstructor;
 
-
-
-
-
-@NoArgsConstructor
 @Entity
 public class Category {
 	
@@ -24,13 +19,11 @@ public class Category {
 	
 	private String name;
 	
-	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-	private List<Product> product;
-	
-	
 
-
+	
+	Category(){
+	}
+	 
 	public Category(String name) {
 		this.name = name;
 	}
@@ -56,13 +49,6 @@ public class Category {
 	}
 
 
-	public List<Product> getProduct() {
-		return product;
-	}
 
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
 
 }

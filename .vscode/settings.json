@@ -1,0 +1,7 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "notebook.defaultFormatter": "rangav.vscode-thunder-client",
+    "thunder-client.saveToWorkspace": true,
+    "thunder-client.customLocation": "eCommerce",
+    "thunder-client.editorFontSize": 1
+}

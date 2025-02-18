@@ -3,6 +3,7 @@ package com.enviro.practice.grad001.kwanelentshele.service.Product;
 import java.util.List;
 
 import com.enviro.practice.grad001.kwanelentshele.Model.Product;
+import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
 
@@ -21,4 +22,6 @@ public interface IProductService {
 	List<Product> getProductsByName (String name);
 	List<Product> getProductsByNameAndBrand(String name, String brand);
 	Long countProductsByBrandAndName(String brand, String name );
+	ProductDto convertToDto(Product product);
+	List<ProductDto> getConvertedProducts(List<Product> products);
 }
