@@ -2,8 +2,7 @@ package com.enviro.practice.grad001.kwanelentshele.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.enviro.practice.grad001.kwanelentshele.Model.Category;
+import com.enviro.practice.grad001.kwanelentshele.model.Category;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 
 @Repository

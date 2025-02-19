@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.enviro.practice.grad001.kwanelentshele.Model.Product;
+import com.enviro.practice.grad001.kwanelentshele.model.Product;
 
 
 @Repository

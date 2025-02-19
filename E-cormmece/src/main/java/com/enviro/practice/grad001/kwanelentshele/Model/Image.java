@@ -1,7 +1,6 @@
-package com.enviro.practice.grad001.kwanelentshele.Model;
+package com.enviro.practice.grad001.kwanelentshele.model;
 
 import java.sql.Blob;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,16 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Image {
 	@Id
@@ -34,6 +25,7 @@ public class Image {
 	@ManyToOne
 	@JoinColumn (name="product_Id")
 	private Product product;
+
 
 	public Long getId() {
 		return id;
@@ -83,5 +75,4 @@ public class Image {
 		this.product = product;
 	}
 	
-
 }

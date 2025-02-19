@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.enviro.practice.grad001.kwanelentshele.Model.Image;
 import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
+import com.enviro.practice.grad001.kwanelentshele.model.Image;
 
 public interface IImageService {
 

@@ -1,8 +1,7 @@
-package com.enviro.practice.grad001.kwanelentshele.Model;
+package com.enviro.practice.grad001.kwanelentshele.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,11 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.NoArgsConstructor;
 
 
-
-@NoArgsConstructor
 @Entity
 public class Product {
 	
@@ -37,6 +33,8 @@ public class Product {
 	@OneToMany(mappedBy ="product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
 	
+	Product(){	
+	}
 	
 	public Product(String name, String brand, BigDecimal price, int inventory, String description, Category category) {
 		this.name = name;
