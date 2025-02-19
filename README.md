@@ -1,1 +1,1 @@
-Online-shopping full-stack application 
+Online-shopping back-end application 
