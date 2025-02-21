@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.model.Product;
@@ -32,7 +31,7 @@ public class ProductController {
 		
 		List<Product> products = productService.getAllProducts();
 		List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
-		return ResponseEntity.ok(new APIResponse("Success 1", convertedProducts));
+		return ResponseEntity.ok(new APIResponse("Below are all products that we currently have!", convertedProducts));
 	}
 	
 	@GetMapping("/product/{productId}/product")
@@ -53,7 +52,7 @@ public class ProductController {
 		
 		try {
 			Product theProduct = productService.addProduct(product);
-			return ResponseEntity.ok(new APIResponse("Success", theProduct));
+			return ResponseEntity.ok(new APIResponse("Product added sucessfully!", theProduct));
 			
 		} catch (ResourceNotFoundException exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
@@ -89,10 +88,10 @@ public class ProductController {
 			List<Product> products = productService.getProductsByNameAndBrand(name, brand);
 			
 			if(products.isEmpty()) {
-				return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", null));
+				return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found for that name or brand!", null));
 			}
 			List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
-			return ResponseEntity.ok(new APIResponse ("Sucess", convertedProducts));
+			return ResponseEntity.ok(new APIResponse ("Below are products for your search!", convertedProducts));
 		}  catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		
@@ -103,12 +102,12 @@ public class ProductController {
 	public ResponseEntity<APIResponse> getProductsByCategoryAndBrand(@RequestParam String category, @RequestParam String brand){
 		
 		try {
-			List<Product> products = productService.getProductsByNameAndBrand(category, brand);
+			List<Product> products = productService.getProductsByCategoryAndBrand(category, brand);
 			
 			if(products.isEmpty()) {
-				return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", null));
+				return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found for that category or brand!", null));
 			}
-			return ResponseEntity.ok(new APIResponse ("Sucess", products));
+			return ResponseEntity.ok(new APIResponse ("Below are products for your search!", products));
 		}  catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		
@@ -117,13 +116,13 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{name}/products")
-	public ResponseEntity<APIResponse> getCategoryByName(@PathVariable String name){
+	public ResponseEntity<APIResponse> getProductsByName(@PathVariable String name){
 		try {
 		List<Product> product = productService.getProductsByName(name);
 		if(product.isEmpty()) {
-			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", null));
+			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found for that name!", null));
 		}
-		return ResponseEntity.ok(new APIResponse ("Sucess", product));
+		return ResponseEntity.ok(new APIResponse ("Below are products for that name!", product));
 		} catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		}
@@ -133,11 +132,11 @@ public class ProductController {
 	@GetMapping("/product/by-brand")
 	public ResponseEntity<APIResponse> getProductsByBrand(@RequestParam String brand){
 		try {
-		List<Product> product = productService.getProductsByName(brand);
+		List<Product> product = productService.getProductsByBrand(brand);
 		if(product.isEmpty()) {
-			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", product));
+			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found for that brand!", product));
 		}
-		return ResponseEntity.ok(new APIResponse ("Sucess", product));
+		return ResponseEntity.ok(new APIResponse ("Below are products for that brand!", product));
 		} catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		}
@@ -147,11 +146,11 @@ public class ProductController {
 	@GetMapping("/product/{category}/all/products")
 	public ResponseEntity<APIResponse> getProductsByCategory(@PathVariable String category){
 		try {
-		List<Product> product = productService.getProductsByName(category);
+		List<Product> product = productService.getProductsByCategory(category);
 		if(product.isEmpty()) {
-			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found!", null));
+			return ResponseEntity.status(NOT_FOUND).body(new APIResponse("Not product found for that category!", null));
 		}
-		return ResponseEntity.ok(new APIResponse ("Sucess", product));
+		return ResponseEntity.ok(new APIResponse ("Below are products for that category!", product));
 		} catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		}
@@ -159,11 +158,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/count/by-brand-and-name")
-	public ResponseEntity<APIResponse> countProductsByBrandAndName(@RequestParam String brand,
-			@RequestParam String name) {
+	public ResponseEntity<APIResponse> countProductsByBrandAndName(@RequestParam String brand, @RequestParam String name) {
 		try {
 			var productCount = productService.countProductsByBrandAndName(brand, name);
-			return ResponseEntity.ok(new APIResponse("Success good!", productCount));
+			return ResponseEntity.ok(new APIResponse("Success! Below is the number of product with that brand and name!", productCount));
 			
 		} catch (Exception exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR)
