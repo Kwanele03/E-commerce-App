@@ -24,9 +24,4 @@ public class APIResponse {
 		this.data = data;
 	}
 	
-	
-
-	
-	
-
 }

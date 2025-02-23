@@ -15,55 +15,38 @@ import com.enviro.practice.grad001.kwanelentshele.repository.ImageRepository;
 import com.enviro.practice.grad001.kwanelentshele.repository.ProductRepository;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
-
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService implements IProductService{
-	
 	
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
 	private final ImageRepository imageRepository;
 	private final ModelMapper modelMapper;
-
-    public ProductService(ProductRepository productRepository,  ImageRepository imageRepository, CategoryRepository categoryRepository,  ModelMapper modelMapper) {
-        this.productRepository = productRepository;
-        this.imageRepository = imageRepository;
-        this.categoryRepository = categoryRepository;
-        this.modelMapper = modelMapper;
-    }
     
 	@Override
 	public Product addProduct(AddProductRequest request) {
-
 		
 		Category category = Optional.ofNullable(categoryRepository.findByName(request.getName()))
-				
-				.orElseGet(() -> {
-		
-		Category newCategory = new Category (request.getCategory().getName());
-		
+	    .orElseGet(() ->{  Category newCategory = new Category (null, request.getCategory().getName());
 		return categoryRepository.save(newCategory);
-			
 		});
 		request.setCategory(category);
 		return productRepository.save(createProduct(request, category));
 	}
 
-	//private or public
 	private Product createProduct(AddProductRequest request, Category category) {
 		
 		return new Product(
-	
 				request.getName(),
 				request.getBrand(),
 				request.getPrice(),
 				request.getInventory(),
 				request.getDescription(),
 				category
-				
-				);
-				
+				);	
 	}
 	
 	@Override
