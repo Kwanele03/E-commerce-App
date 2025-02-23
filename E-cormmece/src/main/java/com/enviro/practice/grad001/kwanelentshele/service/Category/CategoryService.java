@@ -3,22 +3,18 @@ package com.enviro.practice.grad001.kwanelentshele.service.Category;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-
 import com.enviro.practice.grad001.kwanelentshele.exceptions.AlreadyExistException;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.model.Category;
 import com.enviro.practice.grad001.kwanelentshele.repository.CategoryRepository;
 
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService implements ICategoryService{
 	
 	private final  CategoryRepository categoryRepository;
-	
-  
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
 	@Override
 	public Category getCategoryById(Long id) {
@@ -56,9 +52,6 @@ public class CategoryService implements ICategoryService{
 		throw new ResourceNotFoundException("Category cannot be found");
 			
 		});
-		
 	}
-	
-	
-
+		
 }

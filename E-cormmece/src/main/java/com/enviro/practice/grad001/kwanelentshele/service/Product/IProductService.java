@@ -1,7 +1,6 @@
 package com.enviro.practice.grad001.kwanelentshele.service.Product;
 
 import java.util.List;
-
 import com.enviro.practice.grad001.kwanelentshele.dto.ProductDto;
 import com.enviro.practice.grad001.kwanelentshele.model.Product;
 import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
@@ -9,8 +8,6 @@ import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
 
 public interface IProductService {
 
-	
-	
 	Product addProduct(AddProductRequest product);
 	Product getProductById(Long id);
 	void deleteProductById(Long id);
