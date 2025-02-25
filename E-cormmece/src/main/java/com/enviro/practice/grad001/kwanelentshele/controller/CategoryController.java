@@ -1,7 +1,6 @@
 package com.enviro.practice.grad001.kwanelentshele.controller;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.enviro.practice.grad001.kwanelentshele.exceptions.AlreadyExistException;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.model.Category;
@@ -35,27 +33,23 @@ public class CategoryController {
 	}
 	
 	
-	
 	@GetMapping("/all")
 	public ResponseEntity<APIResponse> getAllCategories(){
-		
 	try {	
 		List<Category> categories = categoryService.getAllCategories();
-		return ResponseEntity.ok(new APIResponse("Found!", categories));
+		return ResponseEntity.ok(new APIResponse("Here are all categories!", categories));
 	}
 	catch(Exception exception) {
 		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Erro:", INTERNAL_SERVER_ERROR));
 		
 	}
 	
-	
   }
 	@PostMapping("/add")
 	public ResponseEntity<APIResponse> addCategory(@RequestBody Category name){
-		
 		try {
 		Category theCategory = categoryService.addCategory(name);
-		return ResponseEntity.ok(new APIResponse("Success!", theCategory));
+		return ResponseEntity.ok(new APIResponse("Category added successfully!", theCategory));
 	} 
 		catch (AlreadyExistException exist) {
 			return ResponseEntity.status(CONFLICT).body(new APIResponse(exist.getMessage(), null));
@@ -63,24 +57,23 @@ public class CategoryController {
 	
 	}
 	
-	@GetMapping("/category/{Id}/category")
+	@GetMapping("/category/{id}/category-id")
 	public ResponseEntity<APIResponse> getCategoryById(@PathVariable Long id){
 		try {
 		Category theCategory = categoryService.getCategoryById(id);
-		return  ResponseEntity.ok(new APIResponse("Found", theCategory));
+		return  ResponseEntity.ok(new APIResponse("Success, here is category with that id!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
-			
 			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(notFound.getMessage(), null));	
 		}
 	}
    
 	
-	@GetMapping("/category/{name}/category")
-	public ResponseEntity<APIResponse> getCategoryByName(@PathVariable String name){
+	@GetMapping("/category/{name}/category-name")
+	public ResponseEntity<APIResponse> getCategoryByName(@PathVariable("name") String name){
 		try {
 		Category theCategory = categoryService.getCategoryByName(name);
-		return  ResponseEntity.ok(new APIResponse("Found", theCategory));
+		return  ResponseEntity.ok(new APIResponse("Success, here are categories with that name!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
 			
@@ -88,11 +81,11 @@ public class CategoryController {
 		}
 	}
 	
-	@DeleteMapping("/category/{Id}/delete")
+	@DeleteMapping("/category/{id}/delete")
 	public ResponseEntity<APIResponse> deleteCategory(@PathVariable Long id){
 		try {
             categoryService.deleteCategory(id);
-		return  ResponseEntity.ok(new APIResponse("Found", null));
+		return  ResponseEntity.ok(new APIResponse("Category deleted successfully!", null));
 		}
 		catch (ResourceNotFoundException notFound){
 			
@@ -100,17 +93,15 @@ public class CategoryController {
 		}
 	}
 	
-	@PutMapping ("category/image/{}/update")
-	public ResponseEntity<APIResponse> updateCategory(@PathVariable Long id, @RequestBody Category category){
+	@PutMapping ("category/{id}/update")
+	public ResponseEntity<APIResponse> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
 	
         try {
         	Category updateCategory = categoryService.updateCategory(category, id);
-            return ResponseEntity.ok(new APIResponse("Update Success", updateCategory));
+            return ResponseEntity.ok(new APIResponse("Update was successful!", updateCategory));
         } catch (ResourceNotFoundException exception) {
             return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
-	}
-	
-	
+	}	
 	
 }
