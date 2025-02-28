@@ -3,7 +3,7 @@ package com.enviro.practice.grad001.kwanelentshele.dto;
 public class ImageDto {
 
 	private Long imageId;
-	private String imageName;
+	private String fileName;
 	private String downloadUrl;
 	
 	
@@ -13,12 +13,14 @@ public class ImageDto {
 	public void setImageId(Long imageId) {
 		this.imageId = imageId;
 	}
-	public String getImageName() {
-		return imageName;
+
+	public String getFileName() {
+		return fileName;
 	}
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
+
 	public String getDownloadUrl() {
 		return downloadUrl;
 	}

@@ -40,28 +40,25 @@ public class CategoryController {
 		return ResponseEntity.ok(new APIResponse("Here are all categories!", categories));
 	}
 	catch(Exception exception) {
-		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Erro:", INTERNAL_SERVER_ERROR));
-		
+		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse("Erro:", INTERNAL_SERVER_ERROR));	
 	}
-	
   }
 	@PostMapping("/add")
 	public ResponseEntity<APIResponse> addCategory(@RequestBody Category name){
 		try {
 		Category theCategory = categoryService.addCategory(name);
 		return ResponseEntity.ok(new APIResponse("Category added successfully!", theCategory));
-	} 
+	   } 
 		catch (AlreadyExistException exist) {
 			return ResponseEntity.status(CONFLICT).body(new APIResponse(exist.getMessage(), null));
-		}
-	
+	   }
 	}
 	
 	@GetMapping("/category/{id}/category-id")
 	public ResponseEntity<APIResponse> getCategoryById(@PathVariable Long id){
 		try {
 		Category theCategory = categoryService.getCategoryById(id);
-		return  ResponseEntity.ok(new APIResponse("Success, here is category with that id!", theCategory));
+		   return  ResponseEntity.ok(new APIResponse("Success, here is category with that id!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
 			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(notFound.getMessage(), null));	
@@ -76,7 +73,6 @@ public class CategoryController {
 		return  ResponseEntity.ok(new APIResponse("Success, here are categories with that name!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
-			
 			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(notFound.getMessage(), null));	
 		}
 	}
@@ -88,18 +84,17 @@ public class CategoryController {
 		return  ResponseEntity.ok(new APIResponse("Category deleted successfully!", null));
 		}
 		catch (ResourceNotFoundException notFound){
-			
 			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(notFound.getMessage(), null));	
 		}
 	}
 	
 	@PutMapping ("category/{id}/update")
 	public ResponseEntity<APIResponse> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
-	
         try {
         	Category updateCategory = categoryService.updateCategory(category, id);
             return ResponseEntity.ok(new APIResponse("Update was successful!", updateCategory));
-        } catch (ResourceNotFoundException exception) {
+        } 
+		catch (ResourceNotFoundException exception) {
             return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
 	}	
