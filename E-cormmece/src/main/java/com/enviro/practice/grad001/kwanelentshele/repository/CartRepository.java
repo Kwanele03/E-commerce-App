@@ -5,5 +5,6 @@ import com.enviro.practice.grad001.kwanelentshele.model.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Long>{
 
+    Cart findByUserId(Long userId);
 
 }

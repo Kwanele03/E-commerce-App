@@ -21,16 +21,16 @@ public class CartController {
 
         private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
         private static final HttpStatus INTERNAL_SERVER_ERROR = HttpStatus.INTERNAL_SERVER_ERROR;
-        private final ICartService cartService;
 
+        private final ICartService cartService;
 
         @GetMapping("/{cartId}/my-cart")
         public ResponseEntity<APIResponse> getCart(@PathVariable Long cartId){
             try {
-
                 Cart cart = cartService.getCart(cartId);
                 return ResponseEntity.ok(new APIResponse ("Cart returned sucessfully!", cart));
-            } catch (ResourceNotFoundException exception) {
+            } 
+            catch (ResourceNotFoundException exception) {
                return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null)); 
             }  
         }
@@ -40,8 +40,9 @@ public class CartController {
             try {
                 cartService.clearCart(cartId);
                 return ResponseEntity.ok(new APIResponse("Cart Cleared sucessfully!", null));
-            } catch (ResourceNotFoundException exception) {
-              return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
+            } 
+            catch (ResourceNotFoundException exception) {
+                return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
         }
     }
      
@@ -50,7 +51,8 @@ public class CartController {
           try {
               BigDecimal totalPrice = cartService.getTotalPrice(cartId);
              return ResponseEntity.ok(new APIResponse("Total amount returned sucessfull!", totalPrice));
-           } catch (ResourceNotFoundException exception) {
+           } 
+           catch (ResourceNotFoundException exception) {
               return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
     }
