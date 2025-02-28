@@ -1,6 +1,5 @@
 package com.enviro.practice.grad001.kwanelentshele.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -16,54 +15,53 @@ import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundExc
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.cart.ICartItemService;
 import com.enviro.practice.grad001.kwanelentshele.service.cart.ICartService;
-import lombok.RequiredArgsConstructor;
-
-
 
 @RestController
 @RequestMapping("${api.prefix}/cartItems")
-@RequiredArgsConstructor
 public class CartItemController {
-
     
         private static final HttpStatusCode NOT_FOUND = HttpStatus.NOT_FOUND;
+
         private final ICartItemService cartItemService;
         private final ICartService cartService;
-    
-    
+
+        public CartItemController(ICartItemService cartItemService, ICartService cartService){
+            this.cartItemService = cartItemService;
+            this.cartService = cartService;
+        }
     
         @PostMapping("/item/add")
         public ResponseEntity<APIResponse> addItemToCart(@RequestParam(required = false) Long cartId, @RequestParam Long productId, @RequestParam Integer quantity){
             try {
-    
                 if(cartId == null){
                     cartId = cartService.initializeNewCart();
                 }
                 cartItemService.addItemToCart(cartId, productId, 0);
                 return ResponseEntity.ok(new APIResponse("Item added sucessfully!", null));
-            } catch (ResourceNotFoundException exception) {
-             return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
-        }
+            } 
+            catch (ResourceNotFoundException exception) {
+                return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
+        } 
     }
-
+    
     @DeleteMapping("/cart/{cartId}/item/{itemId}/remove-item")
     public ResponseEntity<APIResponse> removeItemFromCart(@PathVariable Long cartId, @PathVariable Long itemId) {
-        
         try {
             cartItemService.removeItemFromCart(cartId, itemId);
             return ResponseEntity.ok(new APIResponse("Item removed successfully!", null));
-        } catch (ResourceNotFoundException exception) {
+        } 
+        catch (ResourceNotFoundException exception) {
            return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
     }
-
 
     @PutMapping("cart/{cartId}/item/{itemId}/update")
     public ResponseEntity<APIResponse> updateItemQuantity(@PathVariable Long cartId, @PathVariable Long itemId, @RequestBody Integer quantity){
          try {
             cartItemService.updateItemQuantity(cartId, itemId, quantity);
             return ResponseEntity.ok(new APIResponse ("Qauntity updated successfull!", null));
-        } catch (ResourceNotFoundException exception) {
+        } 
+        catch (ResourceNotFoundException exception) {
             return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
     }
