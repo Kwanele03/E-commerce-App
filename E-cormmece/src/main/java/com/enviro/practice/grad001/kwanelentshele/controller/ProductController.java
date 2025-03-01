@@ -12,8 +12,10 @@ import com.enviro.practice.grad001.kwanelentshele.request.AddProductRequest;
 import com.enviro.practice.grad001.kwanelentshele.request.ProductUpdateRequest;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Product.IProductService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("${api.prefix}/products")
 public class ProductController {
 
@@ -21,10 +23,6 @@ public class ProductController {
 	private static final HttpStatusCode NOT_FOUND = HttpStatus.NOT_FOUND;
 
 	private final IProductService productService;
-	
-	public ProductController(IProductService productService) {
-		this.productService = productService;
-	}
 	
 	@GetMapping("/all")
 	public ResponseEntity<APIResponse> getAllProducts(){
@@ -54,9 +52,7 @@ public class ProductController {
 		catch (ResourceNotFoundException exception) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
 		}
-		
 	}
-	
 	
 	@PutMapping("/product/{productId}/update")
 	public ResponseEntity<APIResponse> updateProduct(@RequestBody ProductUpdateRequest request, @PathVariable Long productId){

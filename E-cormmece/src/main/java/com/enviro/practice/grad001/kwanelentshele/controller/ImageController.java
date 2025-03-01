@@ -14,19 +14,16 @@ import com.enviro.practice.grad001.kwanelentshele.dto.ImageDto;
 import com.enviro.practice.grad001.kwanelentshele.model.Image;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Image.IImageService;
-
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("${api.prefix}/images")
 public class ImageController {
 	
 private static final HttpStatus INTERNAL_SERVER_ERROR = HttpStatus.INTERNAL_SERVER_ERROR;
 
 private final IImageService imageServices;
-	
-	public ImageController(IImageService imageServices ) {
-		this.imageServices = imageServices;
-	}
 	
 	@PostMapping("/upload")
 	public ResponseEntity<APIResponse> saveImages(@RequestParam List<MultipartFile> files, @RequestParam Long productId){
@@ -35,8 +32,8 @@ private final IImageService imageServices;
 	   } 
        catch(Exception exception){
 	    	return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse ("Fail to upload an image!", exception.getMessage()));
-	}		
-  }
+	    }		
+    }
 	
 	@GetMapping("/image/download/{imageId}")
 	public ResponseEntity<Resource> downloadImage(@PathVariable Long imageId) throws SQLException{
