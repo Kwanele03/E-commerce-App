@@ -77,13 +77,11 @@ public class ProductService implements IProductService{
 		existingProduct.setDescription(request.getDescription());
 		Category category = categoryRepository.findByName(request.getCategory().getName());
 		existingProduct.setCategory(category);
-		return existingProduct;
-		
+		return existingProduct;	
 	}
 
 	@Override
 	public List<Product> getAllProducts() {
-		
 		return productRepository.findAll();
 	}
 
@@ -120,15 +118,14 @@ public class ProductService implements IProductService{
 	@Override
 	public List<ProductDto> getConvertedProducts(List<Product> products) {
 		return products.stream().map(this :: convertToDto).toList();
-		
 	}
 	
 	@Override
 	public ProductDto convertToDto(Product product) {
 		ProductDto productDto = modelMapper.map(product, ProductDto.class);
 		List<Image> images = imageRepository.findByProductId(product.getId());
-		List<ImageDto> imageDto = images.stream().map(image -> modelMapper.map(image, ImageDto.class)).toList();
-		
+		List<ImageDto> imageDto = images.stream()
+		.map(image -> modelMapper.map(image, ImageDto.class)).toList();
 		productDto.setImages(imageDto);
 		return productDto;
 	}

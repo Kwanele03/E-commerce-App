@@ -26,7 +26,6 @@ public class CartService implements ICartService{
         cart.setTotalAmount(totalAmount);
         return cartRepository.save(cart);
     }
-   
 
     @Override
     public void clearCart(Long id){
@@ -35,7 +34,6 @@ public class CartService implements ICartService{
       cart.getItems().clear();
       cartRepository.deleteById(id);
     }
-   
 
     @Override
     public BigDecimal getTotalPrice(Long id){
@@ -44,7 +42,6 @@ public class CartService implements ICartService{
         .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-
     @Override
     public Long initializeNewCart(){
       Cart newCart = new Cart();
@@ -52,7 +49,6 @@ public class CartService implements ICartService{
       newCart.setId(newCartId);
       return cartRepository.save(newCart).getId();
     }
-
 
     @Override
     public Cart getCartByUserId(Long userId) {

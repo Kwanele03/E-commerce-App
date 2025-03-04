@@ -1,4 +1,5 @@
 package com.enviro.practice.grad001.kwanelentshele.model;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
