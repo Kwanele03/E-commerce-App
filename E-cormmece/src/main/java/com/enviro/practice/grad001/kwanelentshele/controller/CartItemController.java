@@ -15,8 +15,10 @@ import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundExc
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.cart.ICartItemService;
 import com.enviro.practice.grad001.kwanelentshele.service.cart.ICartService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("${api.prefix}/cartItems")
 public class CartItemController {
     
@@ -25,17 +27,10 @@ public class CartItemController {
         private final ICartItemService cartItemService;
         private final ICartService cartService;
 
-        public CartItemController(ICartItemService cartItemService, ICartService cartService){
-            this.cartItemService = cartItemService;
-            this.cartService = cartService;
-        }
-    
         @PostMapping("/item/add")
         public ResponseEntity<APIResponse> addItemToCart(@RequestParam(required = false) Long cartId, @RequestParam Long productId, @RequestParam Integer quantity){
             try {
-                if(cartId == null){
-                    cartId = cartService.initializeNewCart();
-                }
+                if(cartId == null){cartId = cartService.initializeNewCart();}
                 cartItemService.addItemToCart(cartId, productId, 0);
                 return ResponseEntity.ok(new APIResponse("Item added sucessfully!", null));
             } 

@@ -17,8 +17,10 @@ import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundExc
 import com.enviro.practice.grad001.kwanelentshele.model.Category;
 import com.enviro.practice.grad001.kwanelentshele.response.APIResponse;
 import com.enviro.practice.grad001.kwanelentshele.service.Category.ICategoryService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("${api.prefix}/categories")
 public class CategoryController {
 	
@@ -27,16 +29,11 @@ public class CategoryController {
 	private static final HttpStatusCode CONFLICT = HttpStatus.CONFLICT;
 
 	private final ICategoryService categoryService;
-	
-	public CategoryController( ICategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
-	
-	
+
 	@GetMapping("/all")
 	public ResponseEntity<APIResponse> getAllCategories(){
 	try {	
-		List<Category> categories = categoryService.getAllCategories();
+		 List<Category> categories = categoryService.getAllCategories();
 		return ResponseEntity.ok(new APIResponse("Here are all categories!", categories));
 	}
 	catch(Exception exception) {
@@ -46,18 +43,18 @@ public class CategoryController {
 	@PostMapping("/add")
 	public ResponseEntity<APIResponse> addCategory(@RequestBody Category name){
 		try {
-		Category theCategory = categoryService.addCategory(name);
+		     Category theCategory = categoryService.addCategory(name);
 		return ResponseEntity.ok(new APIResponse("Category added successfully!", theCategory));
 	   } 
-		catch (AlreadyExistException exist) {
-			return ResponseEntity.status(CONFLICT).body(new APIResponse(exist.getMessage(), null));
+		catch (AlreadyExistException exception) {
+			return ResponseEntity.status(CONFLICT).body(new APIResponse(exception.getMessage(), null));
 	   }
 	}
 	
 	@GetMapping("/category/{id}/category-id")
 	public ResponseEntity<APIResponse> getCategoryById(@PathVariable Long id){
 		try {
-		Category theCategory = categoryService.getCategoryById(id);
+	         Category theCategory = categoryService.getCategoryById(id);
 		   return  ResponseEntity.ok(new APIResponse("Success, here is category with that id!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
@@ -69,7 +66,7 @@ public class CategoryController {
 	@GetMapping("/category/{name}/category-name")
 	public ResponseEntity<APIResponse> getCategoryByName(@PathVariable("name") String name){
 		try {
-		Category theCategory = categoryService.getCategoryByName(name);
+		     Category theCategory = categoryService.getCategoryByName(name);
 		return  ResponseEntity.ok(new APIResponse("Success, here are categories with that name!", theCategory));
 		}
 		catch (ResourceNotFoundException notFound){
@@ -80,7 +77,7 @@ public class CategoryController {
 	@DeleteMapping("/category/{id}/delete")
 	public ResponseEntity<APIResponse> deleteCategory(@PathVariable Long id){
 		try {
-            categoryService.deleteCategory(id);
+             categoryService.deleteCategory(id);
 		return  ResponseEntity.ok(new APIResponse("Category deleted successfully!", null));
 		}
 		catch (ResourceNotFoundException notFound){

@@ -15,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class CartItem {
 
     @Id

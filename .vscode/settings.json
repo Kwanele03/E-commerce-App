@@ -3,5 +3,6 @@
     "notebook.defaultFormatter": "rangav.vscode-thunder-client",
     "thunder-client.saveToWorkspace": true,
     "thunder-client.customLocation": "eCommerce",
-    "thunder-client.editorFontSize": 1
+    "thunder-client.editorFontSize": 1,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

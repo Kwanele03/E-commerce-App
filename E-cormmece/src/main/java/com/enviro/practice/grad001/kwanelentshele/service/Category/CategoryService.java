@@ -33,13 +33,15 @@ public class CategoryService implements ICategoryService{
 
 	@Override
 	public Category addCategory(Category category) {
-
-		return Optional.of(category).filter(c -> !categoryRepository.existsByName(c.getName())) .map(categoryRepository :: save).orElseThrow(() -> new AlreadyExistException(category.getName() + "Category is already exist!"));
+		return Optional.of(category).filter(c -> !categoryRepository.existsByName(c.getName())) 
+		.map(categoryRepository :: save)
+		.orElseThrow(() -> new AlreadyExistException(category.getName() + "Category is already exist!"));
 	}
 
 	@Override
 	public Category updateCategory(Category category, Long id) {
-		return Optional.ofNullable(getCategoryById(id)).map(oldCategory -> { oldCategory.setName(category.getName());
+		return Optional.ofNullable(getCategoryById(id))
+		.map(oldCategory -> { oldCategory.setName(category.getName());
 		return categoryRepository.save(oldCategory);	
 		}) .orElseThrow(() ->  new ResourceNotFoundException("Category cannot be found"));	
 		
