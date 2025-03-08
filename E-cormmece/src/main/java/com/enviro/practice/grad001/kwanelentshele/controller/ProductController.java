@@ -91,7 +91,7 @@ public class ProductController {
 		}
 	}
 	
-	@GetMapping("/products/by/category-and-brand")
+	@GetMapping("/product/by/category-and-brand")
 	public ResponseEntity<APIResponse> getProductsByCategoryAndBrand(@RequestParam String category, @RequestParam String brand){
 		try {
 			List<Product> products = productService.getProductsByCategoryAndBrand(category, brand);

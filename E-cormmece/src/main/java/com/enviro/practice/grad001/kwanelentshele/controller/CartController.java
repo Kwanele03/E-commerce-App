@@ -56,5 +56,4 @@ public class CartController {
               return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
            }
         }
-
 }

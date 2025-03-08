@@ -50,7 +50,7 @@ public class CategoryController {
 			return ResponseEntity.status(CONFLICT).body(new APIResponse(exception.getMessage(), null));
 	   }
 	}
-	
+
 	@GetMapping("/category/{id}/category-id")
 	public ResponseEntity<APIResponse> getCategoryById(@PathVariable Long id){
 		try {
@@ -61,7 +61,6 @@ public class CategoryController {
 			return ResponseEntity.status(NOT_FOUND).body(new APIResponse(notFound.getMessage(), null));	
 		}
 	}
-   
 	
 	@GetMapping("/category/{name}/category-name")
 	public ResponseEntity<APIResponse> getCategoryByName(@PathVariable("name") String name){
@@ -94,6 +93,5 @@ public class CategoryController {
 		catch (ResourceNotFoundException exception) {
             return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
         }
-	}	
-	
+	}		
 }
