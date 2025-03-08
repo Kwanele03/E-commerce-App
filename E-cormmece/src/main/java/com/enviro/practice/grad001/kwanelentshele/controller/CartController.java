@@ -35,7 +35,7 @@ public class CartController {
             }  
         }
     
-        @DeleteMapping("{cartId}/clear")
+        @DeleteMapping("/{cartId}/clear")
         public ResponseEntity<APIResponse> clearCart(@PathVariable Long cartId){
             try {
                 cartService.clearCart(cartId);
@@ -43,10 +43,10 @@ public class CartController {
             } 
             catch (ResourceNotFoundException exception) {
                 return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new APIResponse(exception.getMessage(), null));
+            }
         }
-    }
      
-       @GetMapping("{cartId}/cart/totalPrice")
+       @GetMapping("/{cartId}/cart/totalPrice")
        public ResponseEntity<APIResponse> getTotalAmount(@PathVariable Long cartId){
           try {
               BigDecimal totalPrice = cartService.getTotalPrice(cartId);
@@ -54,7 +54,6 @@ public class CartController {
            } 
            catch (ResourceNotFoundException exception) {
               return ResponseEntity.status(NOT_FOUND).body(new APIResponse(exception.getMessage(), null));
+           }
         }
-    }
-
 }

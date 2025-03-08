@@ -2,14 +2,14 @@ package com.enviro.practice.grad001.kwanelentshele.service.cart;
 
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Optional;
 import com.enviro.practice.grad001.kwanelentshele.exceptions.ResourceNotFoundException;
 import com.enviro.practice.grad001.kwanelentshele.model.Cart;
 import com.enviro.practice.grad001.kwanelentshele.model.CartItem;
+import com.enviro.practice.grad001.kwanelentshele.model.User;
 import com.enviro.practice.grad001.kwanelentshele.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import com.enviro.practice.grad001.kwanelentshele.repository.CartItemRepository;
-
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +17,6 @@ public class CartService implements ICartService{
 
   private final CartRepository cartRepository;
   private final CartItemRepository cartItemRepository;
-  private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
     @Override
     public Cart getCart(Long id){
@@ -43,11 +42,12 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public Long initializeNewCart(){
-      Cart newCart = new Cart();
-      Long newCartId = cartIdGenerator.incrementAndGet();
-      newCart.setId(newCartId);
-      return cartRepository.save(newCart).getId();
+    public Cart initializeNewCart(User user){
+       return Optional.ofNullable(getCartByUserId(user.getId())).orElseGet(() -> {
+          Cart cart = new Cart();
+          cart.setUser(user);
+          return cartRepository.save(cart);
+       });
     }
 
     @Override

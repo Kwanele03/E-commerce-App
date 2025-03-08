@@ -46,10 +46,10 @@ private final IImageService imageServices;
 	}
 	
 	@PutMapping ("/image/{imageId}/update")
-	public ResponseEntity<APIResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file){
+	public ResponseEntity<APIResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile files){
         try {
 			Image image = imageServices.getImageById(imageId);
-            imageServices.updateImage(file, imageId);
+            imageServices.updateImage(files, imageId);
             return ResponseEntity.ok(new APIResponse("Image updated successfully!", image.getId()));
         } 
 		catch (Exception exception) {

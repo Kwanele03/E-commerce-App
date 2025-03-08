@@ -22,25 +22,33 @@ public class CartItemService implements ICartItemService {
 
     @Override
     public void addItemToCart(Long cartId, Long productId, int quantity) {
-   
-       Cart cart = cartService.getCart(cartId);
-       Product product = productService.getProductById(productId);
-       CartItem cartItem = cart.getItems().stream().filter(items -> items.getProduct()
-       .getId().equals(productId)).findFirst().orElse(new CartItem());
-   
-       if(cartItem.getId() == null){
-        cartItem.setCart(cart);
-        cartItem.setProduct(product);
-        cartItem.setQauntity(quantity);
-        cartItem.setTotalPrice(product.getPrice());
-       } 
-       else{
-        cartItem.setQauntity(cartItem.getQauntity() + quantity);
-       }  
-       cartItem.setTotalPrice();
-       cart.addItems(cartItem);
-       cartItemRepository.save(cartItem);
-       cartRepository. save(cart);
+        Cart cart = cartService.getCart(cartId);
+        Product product = productService.getProductById(productId);
+    
+        CartItem cartItem = cart.getItems().stream()
+            .filter(items -> items.getProduct().getId().equals(productId))
+            .findFirst()
+            .orElse(new CartItem());
+    
+        if (cartItem.getId() == null) {
+            cartItem.setCart(cart);
+            cartItem.setProduct(product);
+            cartItem.setQauntity(quantity);
+        } else {
+            cartItem.setQauntity(cartItem.getQauntity() + quantity);
+        }
+    
+        BigDecimal unitPrice = product.getPrice();
+        if (unitPrice == null) {
+            throw new IllegalArgumentException("Product price cannot be null");
+        }
+        cartItem.setUnitPrice(unitPrice); 
+        cartItem.setTotalPrice(unitPrice); 
+    
+        cart.addItems(cartItem);
+        cartItemRepository.save(cartItem);
+        
+        cartRepository.save(cart);
     }
 
     @Override
@@ -50,24 +58,36 @@ public class CartItemService implements ICartItemService {
        .filter(item -> item.getProduct().getId().equals(productId))
        .findFirst().orElseThrow(() -> new ResourceNotFoundException("We are unlble to find the item you are removing!"));
        cart.removeItemFromCart(itemToRemove);
+
        cartRepository.save(cart);
     }
 
     @Override
     public void updateItemQuantity(Long cartId, Long productId, int quantity) {
-   
-        Cart cart = cartService.getCart(productId);
-        cart.getItems().stream().filter(item -> item.getProduct().getId().equals(productId)).findFirst().ifPresent(item -> {
+     Cart cart = cartService.getCart(cartId);
+
+     cart.getItems().stream()
+        .filter(item -> item.getProduct().getId().equals(productId))
+        .findFirst()
+        .ifPresent(item -> {
             item.setQauntity(quantity);
-            item.setUnitPrice(item.getProduct().getPrice());
-            item.setTotalPrice();
+
+            BigDecimal unitPrice = item.getProduct().getPrice();
+            if (unitPrice == null) {
+                throw new IllegalArgumentException("Product price cannot be null");
+            }
+            item.setUnitPrice(unitPrice); 
+            item.setTotalPrice(unitPrice); 
         });
 
-        BigDecimal totalAmount = cart.getItems()
-        .stream().map(CartItem :: getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal:: add);
-        cart.setTotalAmount(totalAmount);
-        cartItemRepository.save(cart);
-    }
+    BigDecimal totalAmount = cart.getItems()
+        .stream()
+        .map(CartItem::getTotalPrice)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    cart.setTotalAmount(totalAmount);
+
+    cartRepository.save(cart);
+}
 
     @Override
     public CartItem getCartItem(Long cartId, Long productId){
