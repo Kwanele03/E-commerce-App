@@ -61,11 +61,11 @@ public class CartItem {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-    public void setTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(new BigDecimal(qauntity));
+    public void setTotalPrice(BigDecimal unitPrice) {
+        if (unitPrice == null) {
+            throw new IllegalArgumentException("Unit price cannot be null");
+        }
+        this.totalPrice = unitPrice.multiply(new BigDecimal(this.qauntity));
     }
 
     public Product getProduct() {
