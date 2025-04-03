@@ -3,6 +3,7 @@ package com.enviro.practice.grad001.kwanelentshele.data;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+
 import com.enviro.practice.grad001.kwanelentshele.model.User;
 import com.enviro.practice.grad001.kwanelentshele.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
