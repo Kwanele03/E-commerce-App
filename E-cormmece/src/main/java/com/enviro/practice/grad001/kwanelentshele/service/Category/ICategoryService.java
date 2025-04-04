@@ -1,6 +1,7 @@
 package com.enviro.practice.grad001.kwanelentshele.service.Category;
 
 import java.util.List;
+
 import com.enviro.practice.grad001.kwanelentshele.model.Category;
 
 public interface ICategoryService {
